@@ -1,0 +1,5 @@
+
+    public function {{ method }}(AuthUser $authUser, {{ modelClass }} ${{ modelVariable }}): bool
+    {
+        return $authUser->can('{{ permission }}');
+    }

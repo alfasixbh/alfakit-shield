@@ -1,0 +1,86 @@
+{
+  "name": "alfasix/alfakit-shield",
+  "description": "Roles and permissions for AlfaKit panels, built on spatie/laravel-permission: a role resource, permission and policy generation, and page and widget guards.",
+  "keywords": [
+    "laravel",
+    "alfakit",
+    "permissions",
+    "roles",
+    "acl",
+    "rbac",
+    "spatie"
+  ],
+  "homepage": "https://alfakit.dev/docs/plugins/shield",
+  "license": "MIT",
+  "type": "library",
+  "authors": [
+    {
+      "name": "Alfa Six",
+      "homepage": "https://alfasixbh.com",
+      "role": "Developer"
+    }
+  ],
+  "support": {
+    "issues": "https://github.com/alfasixbh/alfakit/issues",
+    "source": "https://github.com/alfasixbh/alfakit"
+  },
+  "require": {
+    "php": "^8.3",
+    "alfasix/alfakit": "^0.1|@dev",
+    "spatie/laravel-permission": "^8.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "AlfaSix\\AlfakitShield\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "AlfaSix\\AlfakitShield\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "AlfaSix\\AlfakitShield\\AlfakitShieldServiceProvider"
+      ]
+    },
+    "alfakit": {
+      "version": "^0.1",
+      "frontend": null,
+      "showcase": {
+        "demoPath": "shield/roles",
+        "tour": [
+          "Open Settings > Roles",
+          "Edit a role",
+          "Toggle permissions per resource, page and widget"
+        ],
+        "clips": [
+          "react-light",
+          "react-dark",
+          "vue-light",
+          "vue-dark",
+          "svelte-light",
+          "svelte-dark"
+        ],
+        "worksWith": [
+          "activity-log",
+          "teams",
+          "feature-flags"
+        ],
+        "highlights": [
+          "Role resource on spatie/laravel-permission",
+          "Permission and policy generation",
+          "Page and widget guards",
+          "Per-tenant roles",
+          "Super admin command"
+        ]
+      }
+    }
+  },
+  "config": {
+    "sort-packages": true
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
+}
