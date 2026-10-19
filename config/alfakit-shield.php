@@ -2,6 +2,8 @@
 
 declare(strict_types=1);
 
+use Illuminate\Foundation\Auth\User;
+
 return [
 
     /*
@@ -11,7 +13,7 @@ return [
     'policies' => [
         'path' => app_path('Policies'),
         'namespace' => 'App\\Policies',
-        'user_model' => Illuminate\Foundation\Auth\User::class,
+        'user_model' => User::class,
     ],
 
     /*
