@@ -178,6 +178,9 @@ class RoleResource extends Resource
                     ->description($resource['model'])
                     ->compact()
                     ->collapsible()
+                    // One column: a section's default two-column layout put the checkbox
+                    // list in half the card, so its labels ran into each other.
+                    ->columns(1)
                     ->columnSpan($plugin->getSectionColumnSpan())
                     ->schema([
                         static::makeCheckboxList("resource_{$subject}", $resource['permissions'])
@@ -188,7 +191,9 @@ class RoleResource extends Resource
             $tabs[] = Tab::make(__('alfakit-shield::shield.tabs.resources'))
                 ->key('resources')
                 ->badge(count($resources))
-                ->schema([Grid::make($plugin->getGridColumns())->schema($sections)]);
+                // Full width: a tab lays its components out in two columns, which squeezed the grid of
+                // resource sections into half the tab and the checkbox labels into each other.
+                ->schema([Grid::make($plugin->getGridColumns())->schema($sections)->columnSpanFull()]);
         }
 
         $pages = array_column($registry->pages(), 'label', 'permission');
@@ -197,7 +202,7 @@ class RoleResource extends Resource
             $tabs[] = Tab::make(__('alfakit-shield::shield.tabs.pages'))
                 ->key('pages')
                 ->badge(count($pages))
-                ->schema([static::makeCheckboxList('pages', $pages)->columns($plugin->getCheckboxListColumns())]);
+                ->schema([static::makeCheckboxList('pages', $pages)->columns($plugin->getCheckboxListColumns())->columnSpanFull()]);
         }
 
         $widgets = array_column($registry->widgets(), 'label', 'permission');
@@ -206,7 +211,7 @@ class RoleResource extends Resource
             $tabs[] = Tab::make(__('alfakit-shield::shield.tabs.widgets'))
                 ->key('widgets')
                 ->badge(count($widgets))
-                ->schema([static::makeCheckboxList('widgets', $widgets)->columns($plugin->getCheckboxListColumns())]);
+                ->schema([static::makeCheckboxList('widgets', $widgets)->columns($plugin->getCheckboxListColumns())->columnSpanFull()]);
         }
 
         $custom = $registry->customPermissionsWithStored();
@@ -215,7 +220,7 @@ class RoleResource extends Resource
             $tabs[] = Tab::make(__('alfakit-shield::shield.tabs.custom'))
                 ->key('custom')
                 ->badge(count($custom))
-                ->schema([static::makeCheckboxList('custom', $custom)->columns($plugin->getCheckboxListColumns())]);
+                ->schema([static::makeCheckboxList('custom', $custom)->columns($plugin->getCheckboxListColumns())->columnSpanFull()]);
         }
 
         return $tabs;

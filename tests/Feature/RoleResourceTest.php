@@ -52,6 +52,20 @@ it('renders the role form with a tab per entity type', function (): void {
         ->and(collect($components)->firstWhere('statePath', 'select_all')['type'])->toBe('Toggle');
 });
 
+it('gives each resource card and permission tab its whole width', function (): void {
+    $this->actingAs($this->makeUser(['super_admin' => []]));
+
+    $components = shieldFlatten($this->inertiaProps('/shield/shield/roles/create')['page']['content']);
+    $sections = array_values(array_filter($components, fn (array $c): bool => $c['type'] === 'Section' && isset($c['heading']) && $c['heading'] !== null));
+    $grid = collect($components)->firstWhere('type', 'Grid');
+
+    // A two-column section (or a half-width grid in the tab) squeezed the checkbox labels
+    // into each other ("ViewView Any").
+    expect($sections)->not->toBeEmpty()
+        ->and(collect($sections)->pluck('columns')->unique()->values()->all())->toBe([['default' => 1, 'lg' => 1]])
+        ->and($grid['columnSpan']['default'] ?? null)->toBe('full');
+});
+
 it('creates a role with the selected permissions', function (): void {
     $this->actingAs($this->makeUser(['super_admin' => []]));
     $token = $this->inertiaProps('/shield/shield/roles/create')['page']['token'];
